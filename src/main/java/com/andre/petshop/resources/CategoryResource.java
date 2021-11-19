@@ -3,29 +3,27 @@ package com.andre.petshop.resources;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.andre.petshop.domain.Category;
+import com.andre.petshop.service.CategoryService;
 
 @RestController
 @RequestMapping(value = "/categories")
 public class CategoryResource {
 
-	@RequestMapping(method = RequestMethod.GET)
-	public List<Category> getCategories() {
+	@Autowired
+	CategoryService service;
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> getCategories(@PathVariable Integer id) {
+		Category categoryData = service.findCategoryId(id);
 		
-		Category foodCategory = new Category(1, "Alimento");
-		Category cosmeticCategory = new Category(2, "Cosmético");
-		Category medicineCategory = new Category(3, "Remédio");
-		
-		List<Category> listCategory = new ArrayList<>();
-		
-		listCategory.add(foodCategory);
-		listCategory.add(cosmeticCategory);
-		listCategory.add(medicineCategory);
-		
-		return listCategory;
+		return ResponseEntity.ok().body(categoryData);
 	}
 }
