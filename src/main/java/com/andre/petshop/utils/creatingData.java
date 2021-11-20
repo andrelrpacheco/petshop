@@ -30,16 +30,16 @@ public class creatingData {
 		
 		Product p1 = new Product(null, "Ração", 100.0);
 		Product p2 = new Product(null, "Sache", 80.0);
-		Product p3 = new Product(null, "Shampoo", 50.0);
-		Product p4 = new Product(null, "Vermifugo", 20.0);
+		Product p3 = new Product(null, "Vermifugo", 20.0);
+		Product p4 = new Product(null, "Shampoo", 50.0);
 		
 		food.getProducts().addAll(Arrays.asList(p1, p2));
 		medicine.getProducts().addAll(Arrays.asList(p3, p4));
-		cosmetic.getProducts().addAll(Arrays.asList(p3));
+		cosmetic.getProducts().addAll(Arrays.asList(p4));
 		
 		p1.getCategories().addAll(Arrays.asList(food));
 		p2.getCategories().addAll(Arrays.asList(food));
-		p3.getCategories().addAll(Arrays.asList(cosmetic));
+		p3.getCategories().addAll(Arrays.asList(medicine));
 		p4.getCategories().addAll(Arrays.asList(medicine, cosmetic));
 		
 		categoryRepository.saveAll(Arrays.asList(food, medicine, cosmetic));
