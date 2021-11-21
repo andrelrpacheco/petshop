@@ -8,15 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.andre.petshop.domain.Category;
+import com.andre.petshop.domain.City;
 import com.andre.petshop.domain.Pet;
 import com.andre.petshop.domain.Product;
 import com.andre.petshop.domain.Race;
 import com.andre.petshop.domain.Specie;
+import com.andre.petshop.domain.State;
 import com.andre.petshop.repository.CategoryRepository;
+import com.andre.petshop.repository.CityRepository;
 import com.andre.petshop.repository.PetRepository;
 import com.andre.petshop.repository.ProductRepository;
 import com.andre.petshop.repository.RaceRepository;
 import com.andre.petshop.repository.SpecieRepository;
+import com.andre.petshop.repository.StateRepository;
 
 @Component
 public class creatingData {
@@ -35,6 +39,12 @@ public class creatingData {
 	
 	@Autowired
 	RaceRepository raceRepository;
+	
+	@Autowired
+	StateRepository stateRepository;
+	
+	@Autowired
+	CityRepository cityRepository;
 	
 	@PostConstruct
 	public void register() {
@@ -74,5 +84,18 @@ public class creatingData {
 		specieRepository.saveAll(Arrays.asList(dog, cat));
 		raceRepository.saveAll(Arrays.asList(rac1, rac2, rac3));
 		petRepository.saveAll(Arrays.asList(pet1, pet2, pet3));
+		
+		State est1 = new State(null, "Minas Gerais");
+		State est2 = new State(null, "São Paulo");
+		
+		City cit1 = new City(null, "Belo Horizonte", est1);
+		City cit2 = new City(null, "Capelinha", est1);
+		City cit3 = new City(null, "São Paulo", est2);
+		
+		est1.getCities().addAll(Arrays.asList(cit1, cit2));
+		est2.getCities().addAll(Arrays.asList(cit3));
+		
+		stateRepository.saveAll(Arrays.asList(est1, est2));
+		cityRepository.saveAll(Arrays.asList(cit1, cit2, cit3));
 	}
 }
