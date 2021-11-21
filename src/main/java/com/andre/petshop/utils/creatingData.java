@@ -8,9 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.andre.petshop.domain.Category;
+import com.andre.petshop.domain.Pet;
 import com.andre.petshop.domain.Product;
+import com.andre.petshop.domain.Race;
+import com.andre.petshop.domain.Specie;
 import com.andre.petshop.repository.CategoryRepository;
+import com.andre.petshop.repository.PetRepository;
 import com.andre.petshop.repository.ProductRepository;
+import com.andre.petshop.repository.RaceRepository;
+import com.andre.petshop.repository.SpecieRepository;
 
 @Component
 public class creatingData {
@@ -20,6 +26,15 @@ public class creatingData {
 	
 	@Autowired
 	ProductRepository productRepository;
+	
+	@Autowired
+	PetRepository petRepository;
+	
+	@Autowired
+	SpecieRepository specieRepository;
+	
+	@Autowired
+	RaceRepository raceRepository;
 	
 	@PostConstruct
 	public void register() {
@@ -44,5 +59,20 @@ public class creatingData {
 		
 		categoryRepository.saveAll(Arrays.asList(food, medicine, cosmetic));
 		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4));
+		
+		Specie dog = new Specie(null, "Cachorro");
+		Specie cat = new Specie(null, "Gato");
+		
+		Race rac1 = new Race(null, "Shitzu");
+		Race rac2 = new Race(null, "Akita");
+		Race rac3 = new Race(null, "Persa");
+		
+		Pet pet1 = new Pet(null, "Jonh", 6, dog, rac1);
+		Pet pet2 = new Pet(null, "Hana", 5, dog, rac2);
+		Pet pet3 = new Pet(null, "Mewth", 8, cat, rac3);
+		
+		specieRepository.saveAll(Arrays.asList(dog, cat));
+		raceRepository.saveAll(Arrays.asList(rac1, rac2, rac3));
+		petRepository.saveAll(Arrays.asList(pet1, pet2, pet3));
 	}
 }
