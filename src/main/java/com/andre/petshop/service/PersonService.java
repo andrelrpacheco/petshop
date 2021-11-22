@@ -17,6 +17,6 @@ public class PersonService {
 	
 	public Person personFind(Integer id) {
 		Optional<Person> personId = accessRepository.findById(id);
-		return personId.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado. ID: " + id + ", Tipo: " + Person.class.getName()));
+		return personId.orElseThrow(() -> new ObjectNotFoundException("Pessoa não encontrada!"));
 	}
 }
