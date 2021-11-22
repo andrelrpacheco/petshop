@@ -7,15 +7,20 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.andre.petshop.domain.Address;
 import com.andre.petshop.domain.Category;
 import com.andre.petshop.domain.City;
+import com.andre.petshop.domain.Client;
+import com.andre.petshop.domain.Functionary;
 import com.andre.petshop.domain.Pet;
 import com.andre.petshop.domain.Product;
 import com.andre.petshop.domain.Race;
 import com.andre.petshop.domain.Specie;
 import com.andre.petshop.domain.State;
+import com.andre.petshop.repository.AddressRepository;
 import com.andre.petshop.repository.CategoryRepository;
 import com.andre.petshop.repository.CityRepository;
+import com.andre.petshop.repository.PersonRepository;
 import com.andre.petshop.repository.PetRepository;
 import com.andre.petshop.repository.ProductRepository;
 import com.andre.petshop.repository.RaceRepository;
@@ -45,6 +50,12 @@ public class creatingData {
 	
 	@Autowired
 	CityRepository cityRepository;
+	
+	@Autowired
+	PersonRepository personRepository;
+	
+	@Autowired
+	AddressRepository addressRepository;
 	
 	@PostConstruct
 	public void register() {
@@ -97,5 +108,18 @@ public class creatingData {
 		
 		stateRepository.saveAll(Arrays.asList(est1, est2));
 		cityRepository.saveAll(Arrays.asList(cit1, cit2, cit3));
+		
+		Client clt1 = new Client(null, "Jose Maria", "josemaria@teste.com", "333.333.333-33", "Física");
+		clt1.getTelephone().addAll(Arrays.asList("3516-2000", "99191-0000"));
+		
+		Functionary func1 = new Functionary(null, "Maria Jose", "mariajose@teste.com", "555.555.555-55", "Atendente");
+		func1.getTelephone().addAll(Arrays.asList("3279-0001", "99090-0002"));
+		
+		Address end1 = new Address(null, "Rua Tupis", "500", "Apto 101", "Pindorama", "30110-222", clt1, cit1);
+		Address end2 = new Address(null, "Av. Tamoios", "100", "Casa", "Oca", "39680-000", func1, cit2);
+		Address end3 = new Address(null, "Rua Arañas", "10", "Apto 201", "Centro", "01153-000", func1, cit3);
+		
+		personRepository.saveAll(Arrays.asList(clt1, func1));
+		addressRepository.saveAll(Arrays.asList(end1, end2, end3));
 	}
 }
