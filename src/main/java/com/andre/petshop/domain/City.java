@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class City implements Serializable {
 
@@ -27,6 +29,7 @@ public class City implements Serializable {
 	@JoinColumn(name = "id_state")
 	private State state;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "city")
 	private List<Address> addresses = new ArrayList<>();
 

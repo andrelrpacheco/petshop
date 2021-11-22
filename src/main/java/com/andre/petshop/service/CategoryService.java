@@ -13,10 +13,10 @@ import com.andre.petshop.service.exceptions.ObjectNotFoundException;
 public class CategoryService {
 
 	@Autowired
-	private CategoryRepository repository;
+	private CategoryRepository accessRepository;
 	
 	public Category findCategoryId(Integer id) {
-		Optional<Category> categoryId = repository.findById(id);
+		Optional<Category> categoryId = accessRepository.findById(id);
 		return categoryId.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado. ID: " + id + ", Tipo: " + Category.class.getName()));
 	}
 }
