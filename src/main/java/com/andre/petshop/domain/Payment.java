@@ -15,14 +15,14 @@ import com.andre.petshop.domain.enums.StatusPayment;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Payment implements Serializable {
+public abstract class Payment implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	private Integer id;
 	private Double value;
-	private StatusPayment statusPayment;
+	private Integer statusPayment;
 	
 	@OneToOne
 	@JoinColumn(name = "id_service")
@@ -37,7 +37,7 @@ public class Payment implements Serializable {
 		super();
 		this.id = id;
 		this.value = value;
-		this.statusPayment = statusPayment;
+		this.statusPayment = statusPayment.getCod();
 		this.service = service;
 	}
 
@@ -75,11 +75,11 @@ public class Payment implements Serializable {
 	}
 
 	public StatusPayment getStatusPayment() {
-		return statusPayment;
+		return StatusPayment.toEnum(statusPayment);
 	}
 
 	public void setStatusPayment(StatusPayment statusPayment) {
-		this.statusPayment = statusPayment;
+		this.statusPayment = statusPayment.getCod();
 	}
 
 	public Service getService() {

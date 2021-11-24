@@ -11,25 +11,25 @@ public class PaymentInMoney extends Payment {
 
 	private static final long serialVersionUID = 1L;
 
-	private Date datePayment;
+	private Date dueDate;
 	private Double discount;
 	
 	public PaymentInMoney() {
 		
 	}
 
-	public PaymentInMoney(Integer id, Double value, StatusPayment statusPayment, Service service, Date datePayment, Double discount) {
+	public PaymentInMoney(Integer id, Double value, StatusPayment statusPayment, Service service, Date dueDate, Double discount) {
 		super(id, value, statusPayment, service);
-		this.datePayment = datePayment;
+		this.dueDate = dueDate;
 		this.discount = discount;
 	}
 
-	public Date getDatePayment() {
-		return datePayment;
+	public Date getDueDate() {
+		return dueDate;
 	}
 
-	public void setDatePayment(Date datePayment) {
-		this.datePayment = datePayment;
+	public void setDueDate(Date dueDate) {
+		this.dueDate = dueDate;
 	}
 
 	public Double getDiscount() {

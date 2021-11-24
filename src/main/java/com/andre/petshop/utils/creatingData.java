@@ -1,5 +1,7 @@
 package com.andre.petshop.utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import javax.annotation.PostConstruct;
@@ -12,18 +14,25 @@ import com.andre.petshop.domain.Category;
 import com.andre.petshop.domain.City;
 import com.andre.petshop.domain.Client;
 import com.andre.petshop.domain.Functionary;
+import com.andre.petshop.domain.Payment;
+import com.andre.petshop.domain.PaymentInCard;
+import com.andre.petshop.domain.PaymentInMoney;
 import com.andre.petshop.domain.Pet;
 import com.andre.petshop.domain.Product;
 import com.andre.petshop.domain.Race;
+import com.andre.petshop.domain.Service;
 import com.andre.petshop.domain.Specie;
 import com.andre.petshop.domain.State;
+import com.andre.petshop.domain.enums.StatusPayment;
 import com.andre.petshop.repository.AddressRepository;
 import com.andre.petshop.repository.CategoryRepository;
 import com.andre.petshop.repository.CityRepository;
+import com.andre.petshop.repository.PaymentRepository;
 import com.andre.petshop.repository.PersonRepository;
 import com.andre.petshop.repository.PetRepository;
 import com.andre.petshop.repository.ProductRepository;
 import com.andre.petshop.repository.RaceRepository;
+import com.andre.petshop.repository.ServiceRepository;
 import com.andre.petshop.repository.SpecieRepository;
 import com.andre.petshop.repository.StateRepository;
 
@@ -57,8 +66,15 @@ public class creatingData {
 	@Autowired
 	AddressRepository addressRepository;
 	
+	@Autowired
+	ServiceRepository serviceRepository;
+	
+	@Autowired
+	PaymentRepository paymentRepository;
+	
+	
 	@PostConstruct
-	public void register() {
+	public void register() throws ParseException {
 		
 		Category food = new Category(null, "Alimento");
 		Category medicine = new Category(null, "Remédio");
@@ -121,5 +137,22 @@ public class creatingData {
 		
 		personRepository.saveAll(Arrays.asList(clt1, func1));
 		addressRepository.saveAll(Arrays.asList(end1, end2, end3));
+		
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		
+		Service srv1 = new Service(null, simpleDateFormat.parse("02/09/2021 09:00"), simpleDateFormat.parse("02/09/2021 12:00"), "Tosa", clt1, func1);
+		Service srv2 = new Service(null, simpleDateFormat.parse("03/09/2021 12:00"), simpleDateFormat.parse("04/09/2021 12:00"), "Hotel", clt1, func1);
+		
+		Payment pgt1 = new PaymentInCard(null, 60.00, StatusPayment.Approved, srv2, 6);
+		srv2.setPayment(pgt1);
+		
+		Payment pgt2 = new PaymentInMoney(null, 250.00, StatusPayment.Pending, srv1, simpleDateFormat.parse("02/09/2021 00:00"), null);
+		srv1.setPayment(pgt2);
+		
+		clt1.getServices().addAll(Arrays.asList(srv1, srv2));
+		func1.getServices().addAll(Arrays.asList(srv1, srv2));
+		
+		serviceRepository.saveAll(Arrays.asList(srv1, srv2));
+		paymentRepository.saveAll(Arrays.asList(pgt1, pgt2));
 	}
 }

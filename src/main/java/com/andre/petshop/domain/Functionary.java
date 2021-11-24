@@ -1,6 +1,10 @@
 package com.andre.petshop.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Functionary extends Person {
@@ -8,6 +12,9 @@ public class Functionary extends Person {
 	private static final long serialVersionUID = 1L;
 	
 	private String function;
+	
+	@OneToMany(mappedBy = "functionary")
+	List<Service> services = new ArrayList<>();
 	
 	public Functionary() {
 		
@@ -24,5 +31,13 @@ public class Functionary extends Person {
 
 	public void setFunction(String function) {
 		this.function = function;
+	}
+
+	public List<Service> getServices() {
+		return services;
+	}
+
+	public void setServices(List<Service> services) {
+		this.services = services;
 	}
 }
