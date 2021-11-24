@@ -140,8 +140,9 @@ public class creatingData {
 		
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
-		Service srv1 = new Service(null, simpleDateFormat.parse("02/09/2021 09:00"), simpleDateFormat.parse("02/09/2021 12:00"), "Tosa", clt1, func1);
-		Service srv2 = new Service(null, simpleDateFormat.parse("03/09/2021 12:00"), simpleDateFormat.parse("04/09/2021 12:00"), "Hotel", clt1, func1);
+		Service srv1 = new Service(null, simpleDateFormat.parse("02/09/2021 09:00"), simpleDateFormat.parse("02/09/2021 12:00"), "Tosa", clt1, func1, pet1);
+		Service srv2 = new Service(null, simpleDateFormat.parse("03/09/2021 12:00"), simpleDateFormat.parse("04/09/2021 12:00"), "Hotel", clt1, func1, pet2);
+		Service srv3 = new Service(null, simpleDateFormat.parse("05/09/2021 16:00"), simpleDateFormat.parse("05/09/2021 16:30"), "Vermifugação", clt1, func1, pet3);
 		
 		Payment pgt1 = new PaymentInCard(null, 60.00, StatusPayment.Approved, srv2, 6);
 		srv2.setPayment(pgt1);
@@ -149,10 +150,16 @@ public class creatingData {
 		Payment pgt2 = new PaymentInMoney(null, 250.00, StatusPayment.Pending, srv1, simpleDateFormat.parse("02/09/2021 00:00"), null);
 		srv1.setPayment(pgt2);
 		
+		Payment pgt3 = new PaymentInMoney(null, 75.00, StatusPayment.Approved, srv3, simpleDateFormat.parse("05/09/2021 16:30"), null);
+		srv3.setPayment(pgt3);
+		
 		clt1.getServices().addAll(Arrays.asList(srv1, srv2));
 		func1.getServices().addAll(Arrays.asList(srv1, srv2));
 		
-		serviceRepository.saveAll(Arrays.asList(srv1, srv2));
-		paymentRepository.saveAll(Arrays.asList(pgt1, pgt2));
+		srv2.getProducts().addAll(Arrays.asList(p1, p2, p4));
+		srv3.getProducts().addAll(Arrays.asList(p3));
+		
+		serviceRepository.saveAll(Arrays.asList(srv1, srv2, srv3));
+		paymentRepository.saveAll(Arrays.asList(pgt1, pgt2, pgt3));
 	}
 }

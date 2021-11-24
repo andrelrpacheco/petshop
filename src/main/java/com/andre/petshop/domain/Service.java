@@ -1,7 +1,9 @@
 package com.andre.petshop.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
@@ -10,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -36,11 +40,22 @@ public class Service implements Serializable {
 	@JoinColumn(name = "id_functionary")
 	private Functionary functionary;
 	
+	@ManyToOne
+	@JoinColumn(name = "id_pet")
+	private Pet pet;
+	
+	@ManyToMany
+	@JoinTable(name = "SERVICE_PRODUCT",
+				joinColumns = @JoinColumn(name = "id_service"),
+				inverseJoinColumns = @JoinColumn(name = "id_product"))
+	private List<Product> products = new ArrayList<>();
+	
 	public Service() {
 		
 	}
 
-	public Service(Integer id, Date entryDate, Date exitDate, String description, Client client, Functionary functionary) {
+	public Service(Integer id, Date entryDate, Date exitDate, String description, Client client,
+			Functionary functionary, Pet pet) {
 		super();
 		this.id = id;
 		this.entryDate = entryDate;
@@ -48,6 +63,7 @@ public class Service implements Serializable {
 		this.description = description;
 		this.client = client;
 		this.functionary = functionary;
+		this.pet = pet;
 	}
 
 	@Override
@@ -121,5 +137,21 @@ public class Service implements Serializable {
 
 	public void setFunctionary(Functionary functionary) {
 		this.functionary = functionary;
+	}
+
+	public Pet getPet() {
+		return pet;
+	}
+
+	public void setPet(Pet pet) {
+		this.pet = pet;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 }
