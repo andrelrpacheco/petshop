@@ -18,7 +18,7 @@ public class PaymentInMoney extends Payment {
 		
 	}
 
-	public PaymentInMoney(Integer id, Double value, StatusPayment statusPayment, Service service, Date dueDate, Double discount) {
+	public PaymentInMoney(Integer id, Double value, StatusPayment statusPayment, ServiceOfPet service, Date dueDate, Double discount) {
 		super(id, value, statusPayment, service);
 		this.dueDate = dueDate;
 		this.discount = discount;

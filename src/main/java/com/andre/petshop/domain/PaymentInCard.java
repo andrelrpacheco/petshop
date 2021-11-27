@@ -15,7 +15,7 @@ public class PaymentInCard extends Payment {
 		
 	}
 
-	public PaymentInCard(Integer id, Double value, StatusPayment statusPayment, Service service, Integer installments) {
+	public PaymentInCard(Integer id, Double value, StatusPayment statusPayment, ServiceOfPet service, Integer installments) {
 		super(id, value, statusPayment, service);
 		this.installments = installments;
 	}

@@ -33,7 +33,7 @@ public class Pet implements Serializable{
 	private Race race;
 	
 	@OneToMany(mappedBy = "pet")
-	private List<Service> services = new ArrayList<>();
+	private List<ServiceOfPet> services = new ArrayList<>();
 	
 	public Pet() {
 		
@@ -105,11 +105,11 @@ public class Pet implements Serializable{
 		this.race = race;
 	}
 
-	public List<Service> getServices() {
+	public List<ServiceOfPet> getServices() {
 		return services;
 	}
 
-	public void setServices(List<Service> services) {
+	public void setServices(List<ServiceOfPet> services) {
 		this.services = services;
 	}
 }

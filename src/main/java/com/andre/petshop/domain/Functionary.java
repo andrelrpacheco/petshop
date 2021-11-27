@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Functionary extends Person {
 
@@ -13,8 +15,9 @@ public class Functionary extends Person {
 	
 	private String function;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "functionary")
-	List<Service> services = new ArrayList<>();
+	List<ServiceOfPet> services = new ArrayList<>();
 	
 	public Functionary() {
 		
@@ -33,11 +36,11 @@ public class Functionary extends Person {
 		this.function = function;
 	}
 
-	public List<Service> getServices() {
+	public List<ServiceOfPet> getServices() {
 		return services;
 	}
 
-	public void setServices(List<Service> services) {
+	public void setServices(List<ServiceOfPet> services) {
 		this.services = services;
 	}
 }

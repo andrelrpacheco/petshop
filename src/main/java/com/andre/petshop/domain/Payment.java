@@ -12,6 +12,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.andre.petshop.domain.enums.StatusPayment;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -24,16 +25,17 @@ public abstract class Payment implements Serializable {
 	private Double value;
 	private Integer statusPayment;
 	
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "id_service")
 	@MapsId
-	private Service service;
+	private ServiceOfPet service;
 	
 	public Payment() {
 		
 	}
 
-	public Payment(Integer id, Double value, StatusPayment statusPayment, Service service) {
+	public Payment(Integer id, Double value, StatusPayment statusPayment, ServiceOfPet service) {
 		super();
 		this.id = id;
 		this.value = value;
@@ -82,11 +84,11 @@ public abstract class Payment implements Serializable {
 		this.statusPayment = statusPayment.getCod();
 	}
 
-	public Service getService() {
+	public ServiceOfPet getService() {
 		return service;
 	}
 
-	public void setService(Service service) {
+	public void setService(ServiceOfPet service) {
 		this.service = service;
 	}
 }

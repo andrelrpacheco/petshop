@@ -17,8 +17,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-public class Service implements Serializable {
+public class ServiceOfPet implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -40,6 +42,7 @@ public class Service implements Serializable {
 	@JoinColumn(name = "id_functionary")
 	private Functionary functionary;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "id_pet")
 	private Pet pet;
@@ -50,11 +53,11 @@ public class Service implements Serializable {
 				inverseJoinColumns = @JoinColumn(name = "id_product"))
 	private List<Product> products = new ArrayList<>();
 	
-	public Service() {
+	public ServiceOfPet() {
 		
 	}
 
-	public Service(Integer id, Date entryDate, Date exitDate, String description, Client client,
+	public ServiceOfPet(Integer id, Date entryDate, Date exitDate, String description, Client client,
 			Functionary functionary, Pet pet) {
 		super();
 		this.id = id;
@@ -79,7 +82,7 @@ public class Service implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Service other = (Service) obj;
+		ServiceOfPet other = (ServiceOfPet) obj;
 		return Objects.equals(id, other.id);
 	}
 

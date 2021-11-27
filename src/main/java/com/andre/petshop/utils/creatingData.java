@@ -20,7 +20,7 @@ import com.andre.petshop.domain.PaymentInMoney;
 import com.andre.petshop.domain.Pet;
 import com.andre.petshop.domain.Product;
 import com.andre.petshop.domain.Race;
-import com.andre.petshop.domain.Service;
+import com.andre.petshop.domain.ServiceOfPet;
 import com.andre.petshop.domain.Specie;
 import com.andre.petshop.domain.State;
 import com.andre.petshop.domain.enums.StatusPayment;
@@ -140,9 +140,9 @@ public class creatingData {
 		
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
-		Service srv1 = new Service(null, simpleDateFormat.parse("02/09/2021 09:00"), simpleDateFormat.parse("02/09/2021 12:00"), "Tosa", clt1, func1, pet1);
-		Service srv2 = new Service(null, simpleDateFormat.parse("03/09/2021 12:00"), simpleDateFormat.parse("04/09/2021 12:00"), "Hotel", clt1, func1, pet2);
-		Service srv3 = new Service(null, simpleDateFormat.parse("05/09/2021 16:00"), simpleDateFormat.parse("05/09/2021 16:30"), "Vermifugação", clt1, func1, pet3);
+		ServiceOfPet srv1 = new ServiceOfPet(null, simpleDateFormat.parse("02/09/2021 09:00"), simpleDateFormat.parse("02/09/2021 12:00"), "Tosa", clt1, func1, pet1);
+		ServiceOfPet srv2 = new ServiceOfPet(null, simpleDateFormat.parse("03/09/2021 12:00"), simpleDateFormat.parse("04/09/2021 12:00"), "Hotel", clt1, func1, pet2);
+		ServiceOfPet srv3 = new ServiceOfPet(null, simpleDateFormat.parse("05/09/2021 16:00"), simpleDateFormat.parse("05/09/2021 16:30"), "Vermifugação", clt1, func1, pet3);
 		
 		Payment pgt1 = new PaymentInCard(null, 60.00, StatusPayment.Approved, srv2, 6);
 		srv2.setPayment(pgt1);

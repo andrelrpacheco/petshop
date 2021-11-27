@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Client extends Person {
 
@@ -13,8 +15,9 @@ public class Client extends Person {
 	
 	private String type;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "client")
-	List<Service> services = new ArrayList<>();
+	List<ServiceOfPet> services = new ArrayList<>();
 	
 	public Client() {
 		
@@ -33,11 +36,11 @@ public class Client extends Person {
 		this.type = type;
 	}
 
-	public List<Service> getServices() {
+	public List<ServiceOfPet> getServices() {
 		return services;
 	}
 
-	public void setServices(List<Service> services) {
+	public void setServices(List<ServiceOfPet> services) {
 		this.services = services;
 	}
 }
