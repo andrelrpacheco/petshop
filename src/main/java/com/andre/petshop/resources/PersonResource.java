@@ -2,6 +2,8 @@ package com.andre.petshop.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.andre.petshop.domain.Person;
+import com.andre.petshop.dto.PersonDTO;
 import com.andre.petshop.service.PersonService;
 
 @RestController
@@ -53,9 +56,10 @@ public class PersonResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Person>> getAllPersons() {
-		List<Person> listPerson = service.getAllPersons();
+	public ResponseEntity<List<PersonDTO>> getAllPersons() {
 		
-		return ResponseEntity.ok().body(listPerson);
+		List<Person> listPerson = service.getAllPersons();
+		List<PersonDTO> listPersonDTO = listPerson.stream().map(data -> new PersonDTO(data)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listPersonDTO);
 	}
 }
